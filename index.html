@@ -393,7 +393,7 @@ downloadBtn.addEventListener('click', () => {
       // Confirm again checkbox is still checked (extra safety)
       if (readyToDownload && licenseCheck.checked) {
         const link = document.createElement('a');
-        link.href = 'Capsule_Installer.zip';
+        link.href = '/app/Capsule_Installer.zip';
         link.download = 'Capsule_Installer.zip';
         document.body.appendChild(link);
         link.click();
