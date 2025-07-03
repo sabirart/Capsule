@@ -63,3 +63,35 @@
     alert('Message sent successfully! We will get back to you soon.');
     this.reset();
   });
+
+  // Word rotation effect HERO
+     const wrapper = document.querySelector(".words");
+  const words = wrapper.querySelectorAll("span");
+  const CURRENT_CLASS = "current";
+  const NEXT_CLASS = "next";
+
+  const wordsWidths = Array.from(words).map(word => word.offsetWidth);
+  const maxWordsWidth = Math.max(...wordsWidths);
+
+  wrapper.style.setProperty("--width", `${words[0].offsetWidth}px`);
+  wrapper.style.setProperty("--width-mobile", `${maxWordsWidth}px`);
+  wrapper.style.setProperty("--color", words[0].dataset.color);
+  wrapper.style.setProperty("--color-bg", words[0].dataset.bgColor);
+
+  setInterval(() => {
+    const current = wrapper.querySelector(`.${CURRENT_CLASS}`);
+    const next = wrapper.querySelector(`.${NEXT_CLASS}`);
+    const upcoming = next.nextElementSibling || wrapper.firstElementChild;
+
+    current.classList.remove(CURRENT_CLASS);
+    next.classList.remove(NEXT_CLASS);
+    next.classList.add(CURRENT_CLASS);
+    upcoming.classList.add(NEXT_CLASS);
+
+    wrapper.style.setProperty("--color", next.dataset.color);
+    wrapper.style.setProperty("--color-bg", next.dataset.bgColor);
+    wrapper.style.setProperty("--width", `${next.offsetWidth}px`);
+  }, 1800);
+
+  
+
