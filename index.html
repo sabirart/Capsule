@@ -405,6 +405,7 @@ section, .card, .modal, .form-control, .accordion-item, .accordion-button, .moda
   const licenseModal = document.getElementById('licenseModal');
 
   let readyToDownload = false;
+  let downloadStarted = false;
 
   licenseCheck.addEventListener('change', () => {
     readyToDownload = licenseCheck.checked;
@@ -418,49 +419,28 @@ section, .card, .modal, .form-control, .accordion-item, .accordion-button, .moda
   });
 
   downloadBtn.addEventListener('click', () => {
-    if (!readyToDownload || downloadBtn.classList.contains('disabled')) return;
+    if (!readyToDownload || downloadBtn.classList.contains('disabled') || downloadStarted) return;
 
+    downloadStarted = true;
     downloadBtn.setAttribute('disabled', 'true');
     downloadSpinner.style.display = 'inline-block';
 
-    const startDownload = () => {
+    const link = document.createElement('a');
+    link.href = './Capsule_Installer.zip';
+    link.download = 'Capsule_Installer.zip';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setTimeout(() => {
       const modalInstance = bootstrap.Modal.getInstance(licenseModal);
       modalInstance.hide();
-
-      if (licenseCheck.checked) {
-        const link = document.createElement('a');
-        link.href = './Capsule_Installer.zip';
-        link.download = 'Capsule_Installer.zip';
-
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = link.href;
-
-        iframe.onload = () => {
-          downloadSpinner.style.display = 'none';
-          cleanup();
-        };
-
-        document.body.appendChild(iframe);
-        setTimeout(() => {
-          if (document.body.contains(iframe)) {
-            downloadSpinner.style.display = 'none';
-            cleanup();
-          }
-        }, 15000); // Max fallback: 15 seconds
-
-        link.click();
-      }
-    };
-
-    const cleanup = () => {
-      downloadBtn.setAttribute('disabled', 'true');
+      downloadSpinner.style.display = 'none';
       downloadBtn.classList.add('disabled');
       licenseCheck.checked = false;
       readyToDownload = false;
-    };
-
-    setTimeout(startDownload, 1000); // Minimum 1 sec delay before download starts
+      downloadStarted = false;
+    }, 2500);
   });
 
   // Form submission feedback
@@ -470,5 +450,6 @@ section, .card, .modal, .form-control, .accordion-item, .accordion-button, .moda
     this.reset();
   });
 </script>
+
 </body>
 </html>
