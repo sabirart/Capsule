@@ -51,11 +51,10 @@
           </span> formats.
         </h1>
         <p class="lead text-muted mb-4 fade-in">CAPSULE by Sabir is a fast, powerful media downloader supporting multiple formats, subtitles, and smart queues.</p>
-        <br>
-       <div class="action-wrapper">
-  <a href="#download" class="action-btn action-btn-primary">Download for Windows</a>
-  <a href="https://chromewebstore.google.com/detail/copy-video-url/fhfmfaokjdlpcbbofolnncfegfhgoafk" target="_blank" class="action-link">Add Chrome Extension</a>
-</div>
+        <div class="smart-btn-wrapper">
+          <a href="#download" class="smart-btn primary-btn">Download for Windows</a>
+          <a href="https://chromewebstore.google.com/detail/copy-video-url/fhfmfaokjdlpcbbofolnncfegfhgoafk" target="_blank" class="extension-link">Add Chrome Extension <span class="arrow">&rarr;</span></a>
+        </div>
 
 
       </div>
@@ -65,8 +64,6 @@
     </div>
   </div>
 </section>
-
-
 
   <!-- Features -->
   <section id="features" class="py-5">
@@ -177,28 +174,41 @@
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="py-5">
+ <!-- Contact -->
+  <section id="contact" class="py-4">
     <div class="container">
-      <h2 class="text-center mb-4 fade-in">Get in Touch</h2>
-      <p class="text-center text-muted mb-4">Questions? Suggestions? Reach out anytime.</p>
-      <div class="row justify-content-center">
+      <h2 class="text-center mb-3 fade-in capsule-glow-title"><span>Get in Touch</span></h2>
+      <p class="text-center text-muted mb-4" style="font-size: 0.95rem; max-width: 500px; margin-left: auto; margin-right: auto;">Questions or suggestions? Reach out to our team.</p>
+      <div class="row justify-content-center align-items-center">
+        <!-- Left Side: Compact PNG Image -->
+        <div class="col-md-6 mb-3 mb-md-0">
+          <div class="text-center">
+            <img src="https://www.gifcen.com/wp-content/uploads/2022/09/png-gif-3.gif" alt="Contact Visual" class="img-fluid" style="width: 850px; height: 650px; object-fit: contain; display: block; margin: 0 auto;">
+          </div>
+        </div>
+        <!-- Right Side: Compact Contact Form -->
         <div class="col-md-6">
-          <form action="https://formspree.io/f/your-form-id" method="POST">
-            <div class="mb-3">
-              <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-            </div>
-            <div class="mb-3">
-              <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-            </div>
-            <div class="mb-3">
-              <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
-            </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary">Send</button>
-            </div>
-          </form>
-          <p class="mt-3 text-center text-muted">Email: <a href="mailto:support@capsulebysabir.com" class="text-primary">support@capsulebysabir.com</a></p>
+          <div class="custom-box glass-bg p-3" style="border-radius: var(--border-radius-md);">
+            <form action="https://formspree.io/f/your-form-id" method="POST" id="contact-form">
+              <div class="mb-3">
+                <label for="name" class="form-label text-light" style="font-weight: 500; font-size: 0.9rem;">Your Name</label>
+                <input type="text" name="name" id="name" class="form-control custom-input" placeholder="Enter your name" required style="font-size: 0.85rem; padding: 0.5rem;">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label text-light" style="font-weight: 500; font-size: 0.9rem;">Your Email</label>
+                <input type="email" name="email" id="email" class="form-control custom-input" placeholder="Enter your email" required style="font-size: 0.85rem; padding: 0.5rem;">
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label text-light" style="font-weight: 500; font-size: 0.9rem;">Your Message</label>
+                <textarea name="message" id="message" class="form-control custom-input" rows="4" placeholder="How can we assist you?" required style="font-size: 0.85rem; padding: 0.5rem;"></textarea>
+              </div>
+              <div class="text-center smart-btn-wrapper">
+                <button type="submit" class="smart-btn primary-btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Send</button>
+              </div>
+              <div id="form-success" class="text-center text-success mt-2" style="display: none; font-size: 0.8rem;">Message sent successfully!</div>
+            </form>
+            <p class="mt-3 text-center text-muted" style="font-size: 0.85rem;">Email: <a href="mailto:support@capsulebysabir.com" class="text-primary extension-link">support@capsulebysabir.com <span class="arrow">→</span></a></p>
+          </div>
         </div>
       </div>
     </div>
