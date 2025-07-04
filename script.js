@@ -7,62 +7,62 @@
   });
 
   // License and download
-  const licenseCheck = document.getElementById('licenseCheck');
-  const downloadBtn = document.getElementById('downloadBtn');
-  const downloadSpinner = document.getElementById('downloadSpinner');
-  const licenseModal = document.getElementById('licenseModal');
+const licenseCheck = document.getElementById('licenseCheck');
+const downloadBtn = document.getElementById('downloadBtn');
+const downloadSpinner = document.getElementById('downloadSpinner');
+const licenseModal = document.getElementById('licenseModal');
 
-  let readyToDownload = false;
+let readyToDownload = false;
 
-  licenseCheck.addEventListener('change', () => {
-    readyToDownload = licenseCheck.checked;
-    if (readyToDownload) {
-      downloadBtn.classList.remove('disabled');
-      downloadBtn.removeAttribute('disabled');
-    } else {
-      downloadBtn.classList.add('disabled');
-      downloadBtn.setAttribute('disabled', true);
-    }
-  });
-
-  downloadBtn.addEventListener('click', () => {
-    if (!readyToDownload || downloadBtn.classList.contains('disabled')) return;
-
-    // Step 1: Show spinner
+licenseCheck.addEventListener('change', () => {
+  readyToDownload = licenseCheck.checked;
+  if (readyToDownload) {
+    downloadBtn.classList.remove('disabled');
+    downloadBtn.removeAttribute('disabled');
+  } else {
+    downloadBtn.classList.add('disabled');
     downloadBtn.setAttribute('disabled', true);
-    downloadSpinner.style.display = 'inline-block';
+  }
+});
 
-    // Step 2: Hide modal after short delay
-    setTimeout(() => {
-      const modalInstance = bootstrap.Modal.getInstance(licenseModal);
-      if (modalInstance) modalInstance.hide();
+downloadBtn.addEventListener('click', (e) => {
+  if (!readyToDownload || downloadBtn.classList.contains('disabled')) return;
 
-      // Step 3: Start download after delay
+  // Step 1: Show spinner and disable button
+  downloadBtn.setAttribute('disabled', true);
+  downloadSpinner.style.display = 'inline-block';
+
+  // Step 2: Hide modal after short delay
+  setTimeout(() => {
+    const modalInstance = bootstrap.Modal.getInstance(licenseModal);
+    if (modalInstance) modalInstance.hide();
+
+    // Step 3: Start download and handle spinner
+    const link = document.createElement('a');
+    link.href = './Capsule_Installer.zip';
+    link.download = 'Capsule_Installer.zip';
+    link.addEventListener('click', () => {
+      // Step 4: Stop spinner only after download starts
       setTimeout(() => {
-        const link = document.createElement('a');
-        link.href = './Capsule_Installer.zip';
-        link.download = 'Capsule_Installer.zip';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        // Step 4: Cleanup
         downloadSpinner.style.display = 'none';
         downloadBtn.setAttribute('disabled', true);
         downloadBtn.classList.add('disabled');
         licenseCheck.checked = false;
         readyToDownload = false;
-      }, 1200); // 1.2s after modal hides
+      }, 500); // Brief delay to ensure download initiation
+    });
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, 800); // 0.8s delay before hiding modal
+});
 
-    }, 800); // 0.8s delay before hiding modal
-  });
-
-  // Form submission
-  document.querySelector('form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    alert('Message sent successfully! We will get back to you soon.');
-    this.reset();
-  });
+// Form submission
+document.querySelector('form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('Message sent successfully! We will get back to you soon.');
+  this.reset();
+});
 
   // Word rotation effect HERO
      const wrapper = document.querySelector(".words");
@@ -92,6 +92,4 @@
     wrapper.style.setProperty("--color-bg", next.dataset.bgColor);
     wrapper.style.setProperty("--width", `${next.offsetWidth}px`);
   }, 1800);
-
-  
 
